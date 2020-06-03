@@ -1,10 +1,14 @@
-package com.example.securitydemo.bean;
+package com.example.securitydemo.pojo;
 
+import com.example.securitydemo.domian.Role;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author
@@ -13,7 +17,7 @@ import java.util.Collection;
  * @description
  **/
 @Data
-public class User implements UserDetails {
+public class UserBean implements UserDetails {
 
     private Integer id;
 
@@ -25,13 +29,20 @@ public class User implements UserDetails {
 
     private Boolean enabled;
 
+    private List<Role> roles;
+
     /**
-     * 返回用户角色
+     * 返回用户角色 设置用户身份权限
      * @return Collection
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        List<Role> roles = getRoles();
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getName()));
+        }
+        return authorities;
     }
 
     @Override
