@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * @description
  **/
 @Entity
-@Table(name = "t_user")
+@Table(name = "t_role")
 @Data
 public class Role {
 

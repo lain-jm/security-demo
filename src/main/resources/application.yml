@@ -1,2 +1,19 @@
 server:
   port: 9090
+
+spring:
+  datasource:
+    name: jpa
+#    url: jdbc:mysql://ip:port/database?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+    url:
+    username:
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true #hibernate的 格式化sql
