@@ -20,13 +20,15 @@ public class UserTest {
     @Resource
     private UserRepository userRepository;
 
+    @Resource
+    private BCryptPasswordEncoder encoder;
+
     @Test
     public void save() {
         User user = new User();
         user.setId(1L);
         user.setUsername("admin");
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        String encode = bCryptPasswordEncoder.encode("123");
+        String encode = encoder.encode("123");
         System.out.println(encode);
         user.setPassword(encode);
 
