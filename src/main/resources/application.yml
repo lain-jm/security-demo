@@ -3,12 +3,16 @@ server:
 
 spring:
   datasource:
-    name: jpa
+    name: security
 #    url: jdbc:mysql://ip:port/database?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
     url:
     username:
     password:
     driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      max-lifetime: 300000
+#      validation-timeout:
+#      connection-test-query: SELECT 1 FROM DUAL
 
   jpa:
     show-sql: true
@@ -22,6 +26,7 @@ spring:
     host:
     port: 6379
     password:
+    database: 0
     lettuce:
       shutdown-timeout: 100ms # 关闭超时时间
       pool:
