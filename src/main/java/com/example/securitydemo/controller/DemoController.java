@@ -1,5 +1,8 @@
 package com.example.securitydemo.controller;
 
+import com.example.securitydemo.domian.User;
+import com.example.securitydemo.pojo.UserBean;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,11 +40,19 @@ public class DemoController {
         return "user";
     }
 
-    @GetMapping("/user/login")
-    public String login(@RequestParam("username")String username,@RequestParam("password") String password){
-        System.out.println(username);
-        System.out.println(password);
-        return "user";
+    @GetMapping("/current-user")
+    public String getUser(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String result;
+        String anonymousUser = "anonymousUser";
+        if(anonymousUser.equals(principal)) {
+            result = anonymousUser;
+        } else {
+            UserBean user = (UserBean) principal;
+            result = user.toString();
+        }
+        System.out.println(result);
+        return result;
     }
 
 }
