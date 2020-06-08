@@ -3,9 +3,15 @@ package com.example.securitydemo.controller;
 import com.example.securitydemo.domian.User;
 import com.example.securitydemo.pojo.UserBean;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.session.SessionInformation;
+import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @author
@@ -52,6 +58,10 @@ public class DemoController {
             result = user.toString();
         }
         System.out.println(result);
+        System.out.println("print principal"+principal);
+        System.out.println("print end");
+
+
         return result;
     }
 

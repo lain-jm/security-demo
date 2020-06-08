@@ -6,6 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -19,7 +20,9 @@ import java.util.List;
 @Data
 public class UserBean implements UserDetails {
 
-    private Integer id;
+    private static final long serialVersionUID = 3975451802767175036L;
+
+    private Long id;
 
     private String username;
 
@@ -44,16 +47,6 @@ public class UserBean implements UserDetails {
         }
         return authorities;
     }
-
-//    @Override
-//    public String getPassword() {
-//        return null;
-//    }
-//
-//    @Override
-//    public String getUsername() {
-//        return null;
-//    }
 
     /**
      * 账号是否过期

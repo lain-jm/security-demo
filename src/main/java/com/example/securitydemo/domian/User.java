@@ -3,6 +3,7 @@ package com.example.securitydemo.domian;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,7 +15,9 @@ import java.util.List;
 @Entity
 @Table(name = "t_user")
 @Data
-public class User {
+public class User implements Serializable {
+
+    private static final long serialVersionUID = -7391853718433295236L;
 
     @Id
     @Column(name = "id")
