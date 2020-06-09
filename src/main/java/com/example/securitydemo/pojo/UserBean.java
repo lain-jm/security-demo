@@ -1,7 +1,10 @@
 package com.example.securitydemo.pojo;
 
 import com.example.securitydemo.domian.Role;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +21,8 @@ import java.util.List;
  * @description
  **/
 @Data
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class UserBean implements UserDetails {
 
     private static final long serialVersionUID = 3975451802767175036L;

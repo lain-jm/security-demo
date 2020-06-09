@@ -2,6 +2,9 @@ package com.example.securitydemo.controller;
 
 import com.example.securitydemo.domian.User;
 import com.example.securitydemo.pojo.UserBean;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.http.server.ServletServerHttpRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.session.SessionInformation;
 import org.springframework.security.core.session.SessionRegistry;
@@ -10,7 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpCookie;
+import java.nio.charset.CharsetDecoder;
 import java.util.List;
 
 /**
@@ -61,8 +69,34 @@ public class DemoController {
         System.out.println("print principal"+principal);
         System.out.println("print end");
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(authentication);
 
         return result;
+    }
+
+    @GetMapping("/de")
+    public String de(HttpServletRequest request){
+        GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
+
+        Cookie[] cookies = request.getCookies();
+        System.out.println(cookies.length);
+        Cookie cookie = cookies[0];
+        System.out.println(cookie);
+        byte[] serialize = genericJackson2JsonRedisSerializer.serialize(cookie);
+        String s = null;
+        try {
+            s = new String(serialize, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(s);
+//        Object deserialize = genericJackson2JsonRedisSerializer.deserialize(serialize);
+//        System.out.println(deserialize);
+//        HttpCookie deserialize1 = genericJackson2JsonRedisSerializer.deserialize(serialize, HttpCookie.class);
+//        System.out.println(deserialize1);
+
+        return null;
     }
 
 }
