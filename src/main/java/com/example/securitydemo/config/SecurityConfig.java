@@ -1,5 +1,6 @@
 package com.example.securitydemo.config;
 
+import com.example.securitydemo.module.security.MyAuthenticationFailureHandler;
 import com.example.securitydemo.module.security.MyAuthenticationSuccessHandler;
 import com.example.securitydemo.servier.UserService;
 import org.springframework.context.annotation.Bean;
@@ -30,6 +31,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
     private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+
+    @Resource
+    private MyAuthenticationFailureHandler myAuthenticationFailureHandler;
 
     @Bean
     UserDetailsService getServiceDetail() {
@@ -69,7 +73,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         /*匹配所有路径的*/
         http
                 .formLogin()
-//                .successHandler(myAuthenticationSuccessHandler)
+                .successHandler(myAuthenticationSuccessHandler)
+//                .failureHandler(myAuthenticationFailureHandler)
                 .and()
                 /*禁用CSRF保护*/
                 .csrf()
